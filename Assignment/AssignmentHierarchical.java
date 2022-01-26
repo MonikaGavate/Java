@@ -25,3 +25,8 @@ public class AssignmentHierarchical {
 	 //p.listen(); will produce an error
 	}
 }
+
+
+****o/p****
+Evaluating
+Teaching Subject
