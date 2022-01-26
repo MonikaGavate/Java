@@ -27,3 +27,8 @@ public class AssignmentMultilevel {
 	}
 
 }
+
+****o/p****
+Does homework
+Listening to teacher
+Teaching subject
