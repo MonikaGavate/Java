@@ -11,7 +11,7 @@ class Student extends Teacher{
 		System.out.println("Listening");
 	}
 }
-class homeTution extends Students{
+class homeTution extends Student{
 	void explains()
 	{
 		System.out.println("Does homework");
@@ -30,5 +30,5 @@ public class AssignmentMultilevel {
 
 ****o/p****
 Does homework
-Listening to teacher
+Listening
 Teaching subject
