@@ -26,3 +26,13 @@ class CalcOperation{
 	}
 
 }
+
+****o/p****
+enter 1st no
+10
+enter 2nd no
+5
+The sum of 2 no=15
+The product of 2 no=50
+The difference of 2 no=5
+The quotiont/division of 2 no=2
