@@ -24,3 +24,12 @@ class CalcProduct{
 	}
 
 }
+
+****o/p****
+Enter the 1st no
+5
+Enter the 2nd no
+10
+Enter the 3rd no
+10
+The product of three no is=500
