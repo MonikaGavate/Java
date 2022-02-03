@@ -8,3 +8,5 @@ public class AssiAlligator9 {
 		System.out.println(y[2][1]);
 		 } 
 		}
+****o/p****
+7
