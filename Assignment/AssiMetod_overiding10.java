@@ -24,3 +24,5 @@ package monika;
 	   obj.display();
 		 }
 	}
+****o/p****
+2
