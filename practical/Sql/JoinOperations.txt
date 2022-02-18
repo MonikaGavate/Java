@@ -1,0 +1,249 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use monika;
+Database changed
+mysql> select * from officers;
++----+---------+---------+
+| id | name    | address |
++----+---------+---------+
+|  1 | monika  | pune    |
+|  2 | anushka | mumbai  |
+|  3 | sakshi  | kolkata |
+|  4 | akash   | nashik  |
+|  5 | kajal   | nagpur  |
++----+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students;
++------+----------+----------+
+| s_id | s_name   | s_course |
++------+----------+----------+
+|    1 | komal    | dbms     |
+|    3 | maya     | computer |
+|   10 | lmn      | java     |
+|   11 | rani     | sql      |
+|   12 | utkarsha | python   |
+|   13 | nikita   | database |
++------+----------+----------+
+6 rows in set (0.00 sec)
+
+mysql>  select officers.name,officers.address,students.s_name from officers INNER JOIN students ON officers.id=students.s_id;
++--------+---------+--------+
+| name   | address | s_name |
++--------+---------+--------+
+| monika | pune    | komal  |
+| sakshi | kolkata | maya   |
++--------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql>  select officers.name,officers.address,students.s_course from officers left JOIN students ON officers.id=students.s_id;
++---------+---------+----------+
+| name    | address | s_course |
++---------+---------+----------+
+| monika  | pune    | dbms     |
+| anushka | mumbai  | NULL     |
+| sakshi  | kolkata | computer |
+| akash   | nashik  | NULL     |
+| kajal   | nagpur  | NULL     |
++---------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql>  select officers.name,officers.address,students.s_course from officers RIGHT JOIN students ON officers.id=students.s_id;
++--------+---------+----------+
+| name   | address | s_course |
++--------+---------+----------+
+| monika | pune    | dbms     |
+| sakshi | kolkata | computer |
+| NULL   | NULL    | java     |
+| NULL   | NULL    | sql      |
+| NULL   | NULL    | python   |
+| NULL   | NULL    | database |
++--------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql>  select officers.name,officers.address,students.s_name,students.s_course from officers RIGHT JOIN students ON officers.id=students.s_id;
++--------+---------+----------+----------+
+| name   | address | s_name   | s_course |
++--------+---------+----------+----------+
+| monika | pune    | komal    | dbms     |
+| sakshi | kolkata | maya     | computer |
+| NULL   | NULL    | lmn      | java     |
+| NULL   | NULL    | rani     | sql      |
+| NULL   | NULL    | utkarsha | python   |
+| NULL   | NULL    | nikita   | database |
++--------+---------+----------+----------+
+6 rows in set (0.00 sec)
+
+mysql>  select officers.id,officers.name,officers.address,students.s_id,students.s_name,students.s_course from officers CROSS JOIN students;
++----+---------+---------+------+----------+----------+
+| id | name    | address | s_id | s_name   | s_course |
++----+---------+---------+------+----------+----------+
+|  1 | monika  | pune    |    1 | komal    | dbms     |
+|  2 | anushka | mumbai  |    1 | komal    | dbms     |
+|  3 | sakshi  | kolkata |    1 | komal    | dbms     |
+|  4 | akash   | nashik  |    1 | komal    | dbms     |
+|  5 | kajal   | nagpur  |    1 | komal    | dbms     |
+|  1 | monika  | pune    |    3 | maya     | computer |
+|  2 | anushka | mumbai  |    3 | maya     | computer |
+|  3 | sakshi  | kolkata |    3 | maya     | computer |
+|  4 | akash   | nashik  |    3 | maya     | computer |
+|  5 | kajal   | nagpur  |    3 | maya     | computer |
+|  1 | monika  | pune    |   10 | lmn      | java     |
+|  2 | anushka | mumbai  |   10 | lmn      | java     |
+|  3 | sakshi  | kolkata |   10 | lmn      | java     |
+|  4 | akash   | nashik  |   10 | lmn      | java     |
+|  5 | kajal   | nagpur  |   10 | lmn      | java     |
+|  1 | monika  | pune    |   11 | rani     | sql      |
+|  2 | anushka | mumbai  |   11 | rani     | sql      |
+|  3 | sakshi  | kolkata |   11 | rani     | sql      |
+|  4 | akash   | nashik  |   11 | rani     | sql      |
+|  5 | kajal   | nagpur  |   11 | rani     | sql      |
+|  1 | monika  | pune    |   12 | utkarsha | python   |
+|  2 | anushka | mumbai  |   12 | utkarsha | python   |
+|  3 | sakshi  | kolkata |   12 | utkarsha | python   |
+|  4 | akash   | nashik  |   12 | utkarsha | python   |
+|  5 | kajal   | nagpur  |   12 | utkarsha | python   |
+|  1 | monika  | pune    |   13 | nikita   | database |
+|  2 | anushka | mumbai  |   13 | nikita   | database |
+|  3 | sakshi  | kolkata |   13 | nikita   | database |
+|  4 | akash   | nashik  |   13 | nikita   | database |
+|  5 | kajal   | nagpur  |   13 | nikita   | database |
++----+---------+---------+------+----------+----------+
+30 rows in set (0.00 sec)
+
+mysql> select address,count(*) from officers group by address;
++---------+----------+
+| address | count(*) |
++---------+----------+
+| pune    |        1 |
+| mumbai  |        1 |
+| kolkata |        1 |
+| nashik  |        1 |
+| nagpur  |        1 |
++---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> alter table officers add column working_hours int;
+Query OK, 0 rows affected (1.25 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from officers;
++----+---------+---------+---------------+
+| id | name    | address | working_hours |
++----+---------+---------+---------------+
+|  1 | monika  | pune    |          NULL |
+|  2 | anushka | mumbai  |          NULL |
+|  3 | sakshi  | kolkata |          NULL |
+|  4 | akash   | nashik  |          NULL |
+|  5 | kajal   | nagpur  |          NULL |
++----+---------+---------+---------------+
+5 rows in set (0.02 sec)
+
+mysql> update officers set working_hours=5 where id=1;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update officers set working_hours=2 where id=2;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update officers set working_hours=4 where id=3;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update officers set working_hours=7 where id=4;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update officers set working_hours=10 where id=5;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from officers;
++----+---------+---------+---------------+
+| id | name    | address | working_hours |
++----+---------+---------+---------------+
+|  1 | monika  | pune    |             5 |
+|  2 | anushka | mumbai  |             2 |
+|  3 | sakshi  | kolkata |             4 |
+|  4 | akash   | nashik  |             7 |
+|  5 | kajal   | nagpur  |            10 |
++----+---------+---------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select name,sum(working_hours) as "Total_working_hours" from officers group by name;
++---------+---------------------+
+| name    | Total_working_hours |
++---------+---------------------+
+| monika  |                   5 |
+| anushka |                   2 |
+| sakshi  |                   4 |
+| akash   |                   7 |
+| kajal   |                  10 |
++---------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select name,min(working_hours) as "Total_working_hours" from officers group by name;
++---------+---------------------+
+| name    | Total_working_hours |
++---------+---------------------+
+| monika  |                   5 |
+| anushka |                   2 |
+| sakshi  |                   4 |
+| akash   |                   7 |
+| kajal   |                  10 |
++---------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select name,min(working_hours) from officers;
++--------+--------------------+
+| name   | min(working_hours) |
++--------+--------------------+
+| monika |                  2 |
++--------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select name,avg(working_hours) as "Total_working_hours" from officers group by name;
++---------+---------------------+
+| name    | Total_working_hours |
++---------+---------------------+
+| monika  |              5.0000 |
+| anushka |              2.0000 |
+| sakshi  |              4.0000 |
+| akash   |              7.0000 |
+| kajal   |             10.0000 |
++---------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select name,max(working_hours) as "Total_working_hours" from officers group by name;
++---------+---------------------+
+| name    | Total_working_hours |
++---------+---------------------+
+| monika  |                   5 |
+| anushka |                   2 |
+| sakshi  |                   4 |
+| akash   |                   7 |
+| kajal   |                  10 |
++---------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select name,sum(working_hours) as "Total_working_hours" from officers group by name having sum(working_hours)>8;
++-------+---------------------+
+| name  | Total_working_hours |
++-------+---------------------+
+| kajal |                  10 |
++-------+---------------------+
+1 row in set (0.00 sec)
+
+mysql>
