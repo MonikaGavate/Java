@@ -1,0 +1,239 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use monika;
+Database changed
+
+mysql> create table officer(o_code int primary key not null,city varchar(20) not null,phone varchar(20) not null,address varchar(20) not null,state varchar(20));
+Query OK, 0 rows affected (0.99 sec)
+
+mysql> desc officer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| o_code  | int         | NO   | PRI | NULL    |       |
+| city    | varchar(20) | NO   |     | NULL    |       |
+| phone   | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | NO   |     | NULL    |       |
+| state   | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.06 sec)
+
+mysql> insert into officer values(1,'pune',996855554735,'abc','maharashtra');
+Query OK, 1 row affected (0.09 sec)
+ at line 1
+mysql> insert into officer values(2,'nashik',567477774554735,'lmn','karnatak');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into officer values(3,'nagpur',65677774554735,'pqr','tamil');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into officer values(4,'nashik',747774554735,'xyz','maharashtra');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into officer values(5,'mumbai',788774554735,'lmn','karnatak');
+Query OK, 1 row affected (0.26 sec)
+
+mysql> select * from officer;
++--------+--------+-----------------+---------+-------------+
+| o_code | city   | phone           | address | state       |
++--------+--------+-----------------+---------+-------------+
+|      1 | pune   | 996855554735    | abc     | maharashtra |
+|      2 | nashik | 567477774554735 | lmn     | karnatak    |
+|      3 | nagpur | 65677774554735  | pqr     | tamil       |
+|      4 | nashik | 747774554735    | xyz     | maharashtra |
+|      5 | mumbai | 788774554735    | lmn     | karnatak    |
++--------+--------+-----------------+---------+-------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select o_code,city,phone from officer where state IN('maharashtra','tamil');
++--------+--------+----------------+
+| o_code | city   | phone          |
++--------+--------+----------------+
+|      1 | pune   | 996855554735   |
+|      3 | nagpur | 65677774554735 |
+|      4 | nashik | 747774554735   |
++--------+--------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select o_code,city,phone,state from officer where state IN('maharashtra','tamil');
++--------+--------+----------------+-------------+
+| o_code | city   | phone          | state       |
++--------+--------+----------------+-------------+
+|      1 | pune   | 996855554735   | maharashtra |
+|      3 | nagpur | 65677774554735 | tamil       |
+|      4 | nashik | 747774554735   | maharashtra |
++--------+--------+----------------+-------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select o_code,city,phone,state from officer where state='maharashtra' OR state='tamil';
++--------+--------+----------------+-------------+
+| o_code | city   | phone          | state       |
++--------+--------+----------------+-------------+
+|      1 | pune   | 996855554735   | maharashtra |
+|      3 | nagpur | 65677774554735 | tamil       |
+|      4 | nashik | 747774554735   | maharashtra |
++--------+--------+----------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select o_code,city,phone,state from officer where state NOT IN('maharashtra','tamil');
++--------+--------+-----------------+----------+
+| o_code | city   | phone           | state    |
++--------+--------+-----------------+----------+
+|      2 | nashik | 567477774554735 | karnatak |
+|      5 | mumbai | 788774554735    | karnatak |
++--------+--------+-----------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> create table product(p_code int primary key not null,p_name varchar(20) not null,buy_price int not null);
+Query OK, 0 rows affected (1.66 sec)
+
+mysql> desc product;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| p_code    | int         | NO   | PRI | NULL    |       |
+| p_name    | varchar(20) | NO   |     | NULL    |       |
+| buy_price | int         | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.07 sec)
+
+mysql> insert into product values(1,'lmn',100);
+Query OK, 1 row affected (0.29 sec)
+
+mysql> insert into product values(2,'jgfhflmn',85);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into product values(3,'pqr',80);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into product values(4,'fjjfhfr',70);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into product values(5,'hfgsgsdfr',20);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into product values(6,'ghhfhsdfr',40);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into product values(7,'ghfhsdfr',75);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into product values(8,'fhgyjgfhsdfr',55);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from product;
++--------+--------------+-----------+
+| p_code | p_name       | buy_price |
++--------+--------------+-----------+
+|      1 | lmn          |       100 |
+|      2 | jgfhflmn     |        85 |
+|      3 | pqr          |        80 |
+|      4 | fjjfhfr      |        70 |
+|      5 | hfgsgsdfr    |        20 |
+|      6 | ghhfhsdfr    |        40 |
+|      7 | ghfhsdfr     |        75 |
+|      8 | fhgyjgfhsdfr |        55 |
++--------+--------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select p_code,buy_price from product where buy_price BETWEEN 80 AND 100;
++--------+-----------+
+| p_code | buy_price |
++--------+-----------+
+|      1 |       100 |
+|      2 |        85 |
+|      3 |        80 |
++--------+-----------+
+3 rows in set (0.05 sec)
+
+
+
+mysql> select p_code,buy_price from product where buy_price>=80 AND buy_price<=100;
++--------+-----------+
+| p_code | buy_price |
++--------+-----------+
+|      1 |       100 |
+|      2 |        85 |
+|      3 |        80 |
++--------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select p_code,buy_price from product where buy_price NOT BETWEEN 80 AND 100;
++--------+-----------+
+| p_code | buy_price |
++--------+-----------+
+|      4 |        70 |
+|      5 |        20 |
+|      6 |        40 |
+|      7 |        75 |
+|      8 |        55 |
++--------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> select p_code,buy_price from product where buy_price<80 OR buy_price>100;
++--------+-----------+
+| p_code | buy_price |
++--------+-----------+
+|      4 |        70 |
+|      5 |        20 |
+|      6 |        40 |
+|      7 |        75 |
+|      8 |        55 |
++--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from product where p_name LIKE '%l';
+Empty set (0.00 sec)
+
+mysql> select * from product where p_name LIKE '%h';
+Empty set (0.00 sec)
+
+mysql> select * from product where p_name LIKE '%d';
+Empty set (0.00 sec)
+
+mysql> select * from product where p_name LIKE '%dfr';
++--------+--------------+-----------+
+| p_code | p_name       | buy_price |
++--------+--------------+-----------+
+|      5 | hfgsgsdfr    |        20 |
+|      6 | ghhfhsdfr    |        40 |
+|      7 | ghfhsdfr     |        75 |
+|      8 | fhgyjgfhsdfr |        55 |
++--------+--------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from product where p_name LIKE 'h';
+Empty set (0.00 sec)
+
+mysql> select * from product where p_name LIKE 'h%';
++--------+-----------+-----------+
+| p_code | p_name    | buy_price |
++--------+-----------+-----------+
+|      5 | hfgsgsdfr |        20 |
++--------+-----------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from product where p_name LIKE 'g%';
++--------+-----------+-----------+
+| p_code | p_name    | buy_price |
++--------+-----------+-----------+
+|      6 | ghhfhsdfr |        40 |
+|      7 | ghfhsdfr  |        75 |
++--------+-----------+-----------+
+2 rows in set (0.00 sec)
+
+mysql>
