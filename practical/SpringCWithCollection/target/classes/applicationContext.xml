@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	<bean id="q1" class="com.Entity.question">	
+	<constructor-arg name="qno" value="101">
+	</constructor-arg>
+	<constructor-arg name="qname" value="What is java?">
+	</constructor-arg>
+	<constructor-arg >
+	<list>
+	<value>Its a programming language</value>
+	<value>It is used for web appl,mobile appl and games development</value>
+	<value>It is secured and platform independent lang</value>
+	</list>
+	</constructor-arg>
+	
+	</bean>
+	
+	</beans>
+	

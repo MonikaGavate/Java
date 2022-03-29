@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	
+   <bean id="a1" class="com.Entity.Address">
+	<constructor-arg name="city" value="mumbai"></constructor-arg>
+	<constructor-arg name="state" value="Maharashtra"></constructor-arg>
+	<constructor-arg name="country" value="India"></constructor-arg>
+	</bean>
+		
+	<bean id="e1" class="com.Entity.Employee">	
+	<constructor-arg name="id" value="101">
+	</constructor-arg>
+	<constructor-arg name="ename" value="monika">
+	</constructor-arg>
+	<constructor-arg name="email" value="monika@gmail.com">
+	</constructor-arg>
+	<constructor-arg>
+	<ref bean="a1"/>
+	</constructor-arg>
+	</bean>
+	
+	</beans>
+	
