@@ -1,0 +1,404 @@
+mysql> use org;
+Database changed
+
+1)
+->
+mysql> create table EMP1(ID int(2) not null primary key,Name varchar(10),Basic decimal(6,2),Designation varchar(10),Age int(2));
+Query OK, 0 rows affected, 2 warnings (1.19 sec)
+
+mysql> desc EMP1;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| ID          | int          | NO   | PRI | NULL    |       |
+| Name        | varchar(10)  | YES  |     | NULL    |       |
+| Basic       | decimal(6,2) | YES  |     | NULL    |       |
+| Designation | varchar(10)  | YES  |     | NULL    |       |
+| Age         | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.06 sec)
+
+2)
+->
+mysql> Alter table EMP1 modify column  Basic int;
+Query OK, 6 rows affected (2.91 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc EMP1;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ID          | int         | NO   | PRI | NULL    |       |
+| Name        | varchar(10) | YES  |     | NULL    |       |
+| Basic       | int         | YES  |     | NULL    |       |
+| Designation | varchar(10) | YES  |     | NULL    |       |
+| Age         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+3)
+->
+mysql> Alter table EMP1 modify column Name varchar(15);
+Query OK, 0 rows affected (0.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc EMP1;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ID          | int         | NO   | PRI | NULL    |       |
+| Name        | varchar(15) | YES  |     | NULL    |       |
+| Basic       | int         | YES  |     | NULL    |       |
+| Designation | varchar(10) | YES  |     | NULL    |       |
+| Age         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+4)
+->
+
+mysql> create table EMP_trainee(Emp_id int(2) not null primary key,Name varchar(10),Basic decimal(6,2),Designation varchar(10),Age int(2));
+Query OK, 0 rows affected, 2 warnings (1.80 sec)
+
+mysql> desc EMP_trainee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| Emp_id      | int          | NO   | PRI | NULL    |       |
+| Name        | varchar(10)  | YES  |     | NULL    |       |
+| Basic       | decimal(6,2) | YES  |     | NULL    |       |
+| Designation | varchar(10)  | YES  |     | NULL    |       |
+| Age         | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.11 sec)
+
+5)
+->
+mysql> insert into EMP1 values(1,'Rohit',6700,'Manager',24);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into EMP1 values(2,'Sunil',6200,'Engineer',27);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into EMP1 values(3,'Payal',6300,'Engineer',25);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into EMP1 values(4,'Kunal',6700,'Trainee',28);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into EMP1 values(5,'Sunita',6230,'Trainee',26);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into EMP1 values(6,'Bimal',7000,'Trainee',25);
+Query OK, 1 row affected (0.24 sec)
+
+mysql> select * from EMP1;
++----+--------+---------+-------------+------+
+| ID | Name   | Basic   | Designation | Age  |
++----+--------+---------+-------------+------+
+|  1 | Rohit  | 6700.00 | Manager     |   24 |
+|  2 | Sunil  | 6200.00 | Engineer    |   27 |
+|  3 | Payal  | 6300.00 | Engineer    |   25 |
+|  4 | Kunal  | 6700.00 | Trainee     |   28 |
+|  5 | Sunita | 6230.00 | Trainee     |   26 |
+|  6 | Bimal  | 7000.00 | Trainee     |   25 |
++----+--------+---------+-------------+------+
+6 rows in set (0.00 sec)
+
+6)
+->
+mysql> insert into EMP_trainee(select * from EMP1 where designation='Trainee');
+Query OK, 3 rows affected (0.17 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from EMP_trainee;
++--------+--------+---------+-------------+------+
+| Emp_id | Name   | Basic   | Designation | Age  |
++--------+--------+---------+-------------+------+
+|      4 | Kunal  | 6700.00 | Trainee     |   28 |
+|      5 | Sunita | 6230.00 | Trainee     |   26 |
+|      6 | Bimal  | 7000.00 | Trainee     |   25 |
++--------+--------+---------+-------------+------+
+3 rows in set (0.00 sec)
+
+7)
+->
+mysql> desc EMP1;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ID          | int         | NO   | PRI | NULL    |       |
+| Name        | varchar(15) | YES  |     | NULL    |       |
+| Basic       | int         | YES  |     | NULL    |       |
+| Designation | varchar(10) | YES  |     | NULL    |       |
+| Age         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.14 sec)
+
+mysql> desc EMP_trainee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| Emp_id      | int          | NO   | PRI | NULL    |       |
+| Name        | varchar(10)  | YES  |     | NULL    |       |
+| Basic       | decimal(6,2) | YES  |     | NULL    |       |
+| Designation | varchar(10)  | YES  |     | NULL    |       |
+| Age         | int          | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+8)
+->
+mysql> Alter table EMP1 Add column Skills varchar(10),Add column DOJ date;
+Query OK, 0 rows affected (1.58 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc EMP1;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ID          | int         | NO   | PRI | NULL    |       |
+| Name        | varchar(15) | YES  |     | NULL    |       |
+| Basic       | int         | YES  |     | NULL    |       |
+| Designation | varchar(10) | YES  |     | NULL    |       |
+| Age         | int         | YES  |     | NULL    |       |
+| Skills      | varchar(10) | YES  |     | NULL    |       |
+| DOJ         | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+mysql> update EMP1 set Skills='database',DOJ='2022-01-21' where ID=1;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update EMP1 set Skills='Program',DOJ='2020-11-21' where ID=2;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update EMP1 set Skills='.net',DOJ='2021-09-26' where ID=3;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update EMP1 set Skills='python',DOJ='2018-08-28' where ID=4;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update EMP1 set Skills='java',DOJ='2010-08-28' where ID=5;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update EMP1 set Skills='c++',DOJ='2000-08-28' where ID=6;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from EMP1;
++----+--------+-------+-------------+------+----------+------------+
+| ID | Name   | Basic | Designation | Age  | Skills   | DOJ        |
++----+--------+-------+-------------+------+----------+------------+
+|  1 | Rohit  |  6700 | Manager     |   24 | database | 2022-01-21 |
+|  2 | Sunil  |  6200 | Engineer    |   27 | Program  | 2020-11-21 |
+|  3 | Payal  |  6300 | Engineer    |   25 | .net     | 2021-09-26 |
+|  4 | Kunal  |  6700 | Trainee     |   28 | python   | 2018-08-28 |
+|  5 | Sunita |  6230 | Trainee     |   26 | java     | 2010-08-28 |
+|  6 | Bimal  |  7000 | Trainee     |   25 | c++      | 2000-08-28 |
++----+--------+-------+-------------+------+----------+------------+
+6 rows in set (0.04 sec)
+
+
+9)
+->
+mysql> update EMP_trainee SET Designation='Programmer_Trainee' where Emp_id=4;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update EMP_trainee SET Designation='Programmer_Trainee' where Emp_id=5;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update EMP_trainee SET Designation='Programmer_Trainee' where Emp_id=6;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from EMP_trainee;
++--------+--------+---------+--------------------+------+
+| Emp_id | Name   | Basic   | Designation        | Age  |
++--------+--------+---------+--------------------+------+
+|      4 | Kunal  | 6700.00 | Programmer_Trainee |   28 |
+|      5 | Sunita | 6230.00 | Programmer_Trainee |   26 |
+|      6 | Bimal  | 7000.00 | Programmer_Trainee |   25 |
++--------+--------+---------+--------------------+------+
+3 rows in set (0.00 sec)
+
+10)
+->
+
+mysql> update EMP1 SET Age=22 where Designation='Trainee';
+Query OK, 3 rows affected (0.08 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from EMP1;
++----+--------+---------+-------------+------+
+| ID | Name   | Basic   | Designation | Age  |
++----+--------+---------+-------------+------+
+|  1 | Rohit  | 6700.00 | Manager     |   24 |
+|  2 | Sunil  | 6200.00 | Engineer    |   27 |
+|  3 | Payal  | 6300.00 | Engineer    |   25 |
+|  4 | Kunal  | 6700.00 | Trainee     |   22 |
+|  5 | Sunita | 6230.00 | Trainee     |   22 |
+|  6 | Bimal  | 7000.00 | Trainee     |   22 |
++----+--------+---------+-------------+------+
+6 rows in set (0.03 sec)
+
+11)
+->
+mysql> Alter table EMP1 modify column ID varchar(5);
+Query OK, 6 rows affected (2.47 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc EMP1;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ID          | varchar(5)  | NO   | PRI | NULL    |       |
+| Name        | varchar(15) | YES  |     | NULL    |       |
+| Basic       | int         | YES  |     | NULL    |       |
+| Designation | varchar(10) | YES  |     | NULL    |       |
+| Age         | int         | YES  |     | NULL    |       |
+| Skills      | varchar(10) | YES  |     | NULL    |       |
+| DOJ         | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+12)
+->
+mysql> select * from EMP1;
++----+--------+-------+-------------+------+----------+------------+
+| ID | Name   | Basic | Designation | Age  | Skills   | DOJ        |
++----+--------+-------+-------------+------+----------+------------+
+| 1  | Rohit  |  6700 | Manager     |   24 | database | 2022-01-21 |
+| 2  | Sunil  |  6200 | Engineer    |   27 | Program  | 2020-11-21 |
+| 3  | Payal  |  6300 | Engineer    |   25 | .net     | 2021-09-26 |
+| 4  | Kunal  |  6700 | Trainee     |   28 | python   | 2018-08-28 |
+| 5  | Sunita |  6230 | Trainee     |   26 | java     | 2010-08-28 |
+| 6  | Bimal  |  7000 | Trainee     |   25 | c++      | 2000-08-28 |
++----+--------+-------+-------------+------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from EMP_trainee;
++--------+--------+---------+--------------------+------+
+| Emp_id | Name   | Basic   | Designation        | Age  |
++--------+--------+---------+--------------------+------+
+|      4 | Kunal  | 6700.00 | Programmer_Trainee |   28 |
+|      5 | Sunita | 6230.00 | Programmer_Trainee |   26 |
+|      6 | Bimal  | 7000.00 | Programmer_Trainee |   25 |
++--------+--------+---------+--------------------+------+
+3 rows in set (0.04 sec)
+
+13)
+->
+
+mysql> Alter table EMP1 RENAME column Age To Age_in_Years;
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from EMP1;
++----+--------+-------+-------------+--------------+----------+------------+
+| ID | Name   | Basic | Designation | Age_in_Years | Skills   | DOJ        |
++----+--------+-------+-------------+--------------+----------+------------+
+| 1  | Rohit  |  6700 | Manager     |           24 | database | 2022-01-21 |
+| 2  | Sunil  |  6200 | Engineer    |           27 | Program  | 2020-11-21 |
+| 3  | Payal  |  6300 | Engineer    |           25 | .net     | 2021-09-26 |
+| 4  | Kunal  |  6700 | Trainee     |           28 | python   | 2018-08-28 |
+| 5  | Sunita |  6230 | Trainee     |           26 | java     | 2010-08-28 |
+| 6  | Bimal  |  7000 | Trainee     |           25 | c++      | 2000-08-28 |
++----+--------+-------+-------------+--------------+----------+------------+
+6 rows in set (0.04 sec)
+
+14)
+->
+mysql> delete  from EMP1;
+Query OK, 6 rows affected (0.08 sec)
+
+
+mysql> select * from EMP1;
+Empty set (0.00 sec)
+
+mysql> desc EMP1;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| ID           | varchar(5)  | NO   | PRI | NULL    |       |
+| Name         | varchar(15) | YES  |     | NULL    |       |
+| Basic        | int         | YES  |     | NULL    |       |
+| Designation  | varchar(10) | YES  |     | NULL    |       |
+| Age_in_Years | int         | YES  |     | NULL    |       |
+| Skills       | varchar(10) | YES  |     | NULL    |       |
+| DOJ          | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+7 rows in set (0.13 sec)
+
+
+15)
+->
+mysql> Alter table EMP_trainee Drop column Age;
+Query OK, 0 rows affected (2.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from EMP_trainee;
++--------+--------+---------+--------------------+
+| Emp_id | Name   | Basic   | Designation        |
++--------+--------+---------+--------------------+
+|      4 | Kunal  | 6700.00 | Programmer_Trainee |
+|      5 | Sunita | 6230.00 | Programmer_Trainee |
+|      6 | Bimal  | 7000.00 | Programmer_Trainee |
++--------+--------+---------+--------------------+
+3 rows in set (0.00 sec)
+
+16)
+->
+mysql> Alter table EMP_trainee Drop column Basic,Drop column Designation;
+Query OK, 0 rows affected (2.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from EMP_trainee;
++--------+--------+
+| Emp_id | Name   |
++--------+--------+
+|      4 | Kunal  |
+|      5 | Sunita |
+|      6 | Bimal  |
++--------+--------+
+3 rows in set (0.00 sec)
+
+17)
+->
+mysql> Alter table EMP1 RENAME EMP_Mgr_Engr;
+Query OK, 0 rows affected (0.37 sec)
+
+18)
+->
+mysql> Drop table EMP_trainee;
+Query OK, 0 rows affected (0.98 sec)
+
+
+19)
+->
+mysql> TRUNCATE table EMP_Mgr_Engr;
+Query OK, 0 rows affected (1.19 sec)
+
+mysql> desc EMP_Mgr_Engr;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| ID           | varchar(5)  | NO   | PRI | NULL    |       |
+| Name         | varchar(15) | YES  |     | NULL    |       |
+| Basic        | int         | YES  |     | NULL    |       |
+| Designation  | varchar(10) | YES  |     | NULL    |       |
+| Age_in_Years | int         | YES  |     | NULL    |       |
+| Skills       | varchar(10) | YES  |     | NULL    |       |
+| DOJ          | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+7 rows in set (0.16 sec)
+
+20)
+->

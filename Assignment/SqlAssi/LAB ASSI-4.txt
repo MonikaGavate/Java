@@ -1,0 +1,210 @@
+mysql> use org;
+Database changed
+
+1)
+->
+mysql>create table customers(Cust_id varchar(5) primary key not null,Fname varchar(20) not null,Lname varchar(20),
+Area varchar(20) not null,phone int);
+
+mysql>create tble movie(Mv_no inr primary key not null,Cust_id varchar(5) references customers(Cust_id),title varchar(20) not null,
+Star varchar(20) not null,price int);
+
+mysql> select * from customers;
++---------+---------+----------+------+---------+
+| Cust_id | Fname   | Lname    | Area | phone   |
++---------+---------+----------+------+---------+
+| A01     | Ivan    | Ross     | SA   | 6125467 |
+| A02     | Vandana | Ray      | MU   | 5560379 |
+| A03     | Pramada | Jauguste | DA   | 4560389 |
+| A04     | Basu    | Navindi  | BA   | 6125401 |
+| A05     | Ravi    | Shridhar | NA   |    NULL |
+| A06     | Rukmini | Aiyer    | GH   | 5125274 |
++---------+---------+----------+------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from movie;
++-------+---------+--------------------+------+-------+
+| Mv_no | Cust_id | Title              | Star | Price |
++-------+---------+--------------------+------+-------+
+|     1 | A02     | Bloody             | JC   |   181 |
+|     2 | A04     | The Firm           | TC   |   200 |
+|     3 | A01     | Pretty Woman       | RG   |   151 |
+|     4 | A06     | Home Alone         | MC   |   150 |
+|     5 | A05     | The Fugitive       | MF   |   200 |
+|     6 | A03     | Coma               | MD   |   100 |
+|     7 | A02     | Dracula            | GO   |   150 |
+|     8 | A06     | Quick Change       | BM   |   100 |
+|     9 | A03     | Gone with the Wind | CB   |   200 |
+|    10 | A05     | Carry on Doctor    | LP   |   100 |
++-------+---------+--------------------+------+-------+
+10 rows in set (0.04 sec)
+
+2)
+->
+mysql> insert into movie values(null,'a','gavate','MU',55);
+ERROR 1048 (23000): Column 'Mv_no' cannot be null
+
+mysql> insert into movie values(null,'A02','gavate','MU',55);
+ERROR 1048 (23000): Column 'Mv_no' cannot be null
+
+3)
+->
+mysql> insert into movie values(11,'A','gavate','MU',55);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails
+(`org`.`movie`, CONSTRAINT `Cust_id` FOREIGN KEY (`Cust_id`) REFERENCES `customers` (`Cust_id`))
+
+4)
+->
+mysql> insert into movie values(11,'A02','gavate','MU','Monika');
+ERROR 1366 (HY000): Incorrect integer value: 'Monika' for column 'Price' at row 1
+
+5)
+->
+
+mysql> select Title from movie where Price>100 and price<200;
++--------------+
+| Title        |
++--------------+
+| Bloody       |
+| Pretty Woman |
+| Home Alone   |
+| Dracula      |
++--------------+
+4 rows in set (0.00 sec)
+
+6)
+->
+mysql> select Cust_id from movie where Star IN('JC','TC','MC');
++---------+
+| Cust_id |
++---------+
+| A02     |
+| A04     |
+| A06     |
++---------+
+3 rows in set (0.00 sec)
+
+7)
+->
+mysql> select * from customers where Area='A';
+Empty set (0.00 sec)
+
+8)
+->
+mysql> select Title from movie where price<180 AND Title LIKE '______';
+Empty set (0.00 sec)
+
+9)
+->
+mysql> select Title,Price,price+(Price*10/100) as 'incremented price' from movie;
++--------------------+-------+-------------------+
+| Title              | Price | incremented price |
++--------------------+-------+-------------------+
+| Bloody             |   181 |          199.1000 |
+| The Firm           |   200 |          220.0000 |
+| Pretty Woman       |   151 |          166.1000 |
+| Home Alone         |   150 |          165.0000 |
+| The Fugitive       |   200 |          220.0000 |
+| Coma               |   100 |          110.0000 |
+| Dracula            |   150 |          165.0000 |
+| Quick Change       |   100 |          110.0000 |
+| Gone with the Wind |   200 |          220.0000 |
+| Carry on Doctor    |   100 |          110.0000 |
++--------------------+-------+-------------------+
+10 rows in set (0.00 sec)
+
+10)
+->
+mysql> Alter table customers MODIFY Lname varchar(20) not null;
+Query OK, 0 rows affected (2.72 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Cust_id | varchar(5)  | NO   | PRI | NULL    |       |
+| Fname   | varchar(20) | NO   |     | NULL    |       |
+| Lname   | varchar(20) | NO   |     | NULL    |       |
+| Area    | varchar(20) | NO   |     | NULL    |       |
+| phone   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.11 sec)
+
+12)->
+
+mysql> select Fname from customers where phone IS NULL;
++-------+
+| Fname |
++-------+
+| Ravi  |
++-------+
+1 row in set (0.00 sec)
+
+OR
+
+mysql> select concat(Fname,' ',Lname) as name from customers where phone IS NULL;
++---------------+
+| name          |
++---------------+
+| Ravi Shridhar |
++---------------+
+1 row in set (0.00 sec)
+
+13)
+->
+mysql> update customers SET phone='123456' where Cust_id='A05';
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++---------+---------+----------+------+---------+
+| Cust_id | Fname   | Lname    | Area | phone   |
++---------+---------+----------+------+---------+
+| A01     | Ivan    | Ross     | SA   | 6125467 |
+| A02     | Vandana | Ray      | MU   | 5560379 |
+| A03     | Pramada | Jauguste | DA   | 4560389 |
+| A04     | Basu    | Navindi  | BA   | 6125401 |
+| A05     | Ravi    | Shridhar | NA   |  123456 |
+| A06     | Rukmini | Aiyer    | GH   | 5125274 |
++---------+---------+----------+------+---------+
+6 rows in set (0.00 sec)
+
+14)
+->
+
+mysql> select DISTINCT(Cust_id) from movie;
++---------+
+| Cust_id |
++---------+
+| A01     |
+| A02     |
+| A03     |
+| A04     |
+| A05     |
+| A06     |
++---------+
+6 rows in set (0.04 sec)
+
+15)
+->
+
+mysql> Alter table movie modify Star varchar(20) null;
+Query OK, 0 rows affected (3.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc movie;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Mv_no   | int         | NO   | PRI | NULL    |       |
+| Cust_id | varchar(5)  | YES  | MUL | NULL    |       |
+| Title   | varchar(20) | NO   |     | NULL    |       |
+| Star    | varchar(20) | YES  |     | NULL    |       |
+| Price   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+16)
+->
+

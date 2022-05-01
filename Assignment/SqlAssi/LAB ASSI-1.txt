@@ -1,0 +1,245 @@
+mysql> use org;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_org |
++---------------+
+| bonus         |
+| customer      |
+| employee      |
+| title         |
+| title1        |
+| worker        |
++---------------+
+6 rows in set (0.14 sec)
+
+1)
+->
+mysql> create table customer(cust_id varchar(5) primary key not null,Fname varchar(15),Lname varchar(15),
+Area char(2),Phone bigint,DOB date,Payment decimal(6,2));
+ 
+2)
+->
+mysql> desc customer;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| Cust_id | varchar(5)   | NO   | PRI | NULL    |       |
+| Fname   | varchar(15)  | YES  |     | NULL    |       |
+| Lname   | varchar(15)  | YES  |     | NULL    |       |
+| Area    | char(2)      | YES  |     | NULL    |       |
+| Phone   | bigint       | YES  |     | NULL    |       |
+| DOB     | date         | YES  |     | NULL    |       |
+| Payment | decimal(6,2) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.12 sec)
+
+3)
+->
+mysql> select * from customer;
++---------+---------+-----------+------+---------+------------+---------+
+| Cust_id | Fname   | Lname     | Area | Phone   | DOB        | Payment |
++---------+---------+-----------+------+---------+------------+---------+
+| A01     | Ivan    | Ross      | SA   | 6125467 | 1986-01-15 |  800.50 |
+| A02     | Vandana | Ray       | MU   | 5560379 | 1987-12-20 | 1000.75 |
+| A03     | Pramada | Jaugustte | DA   | 4560389 | 1967-07-25 |  500.00 |
+| A04     | Basu    | Navindi   | BA   | 6125401 | 1956-02-28 |  860.00 |
+| A05     | Ravi    | Shridhar  | NA   |       0 | 1989-02-15 |  500.50 |
+| A06     | Rukmini | Aiyer     | GH   | 5125274 | 1987-07-23 | 1500.50 |
++---------+---------+-----------+------+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+4)
+->
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2022-03-10 21:37:18 |
++---------------------+
+1 row in set (0.04 sec)
+
+OR
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-03-10 |
++------------+
+1 row in set (0.04 sec)
+
+5)
+->
+mysql> select * from customer;
++---------+---------+-----------+------+---------+------------+---------+
+| Cust_id | Fname   | Lname     | Area | Phone   | DOB        | Payment |
++---------+---------+-----------+------+---------+------------+---------+
+| A01     | Ivan    | Ross      | SA   | 6125467 | 1986-01-15 |  800.50 |
+| A02     | Vandana | Ray       | MU   | 5560379 | 1987-12-20 | 1000.75 |
+| A03     | Pramada | Jaugustte | DA   | 4560389 | 1967-07-25 |  500.00 |
+| A04     | Basu    | Navindi   | BA   | 6125401 | 1956-02-28 |  860.00 |
+| A05     | Ravi    | Shridhar  | NA   |       0 | 1989-02-15 |  500.50 |
+| A06     | Rukmini | Aiyer     | GH   | 5125274 | 1987-07-23 | 1500.50 |
++---------+---------+-----------+------+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+6)
+->
+mysql> update customer SET Phone=1234567 where Cust_id='A02';
+Query OK, 0 rows affected (0.05 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from customer;
++---------+---------+-----------+------+---------+------------+---------+
+| Cust_id | Fname   | Lname     | Area | Phone   | DOB        | Payment |
++---------+---------+-----------+------+---------+------------+---------+
+| A01     | Ivan    | Ross      | SA   | 6125467 | 1986-01-15 |  800.50 |
+| A02     | Vandana | Ray       | MU   | 1234567 | 1987-12-20 | 1000.75 |
+| A03     | Pramada | Jaugustte | DA   | 4560389 | 1967-07-25 |  500.00 |
+| A04     | Basu    | Navindi   | BA   | 6125401 | 1956-02-28 |  860.00 |
+| A05     | Ravi    | Shridhar  | NA   |       0 | 1989-02-15 |  500.50 |
+| A06     | Rukmini | Aiyer     | GH   | 5125274 | 1987-07-23 | 1500.50 |
++---------+---------+-----------+------+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+
+mysql> update customer SET phone=9876543 where Cust_id='A04';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++---------+---------+-----------+------+---------+------------+---------+
+| Cust_id | Fname   | Lname     | Area | Phone   | DOB        | Payment |
++---------+---------+-----------+------+---------+------------+---------+
+| A01     | Ivan    | Ross      | SA   | 6125467 | 1986-01-15 |  800.50 |
+| A02     | Vandana | Ray       | MU   | 1234567 | 1987-12-20 | 1000.75 |
+| A03     | Pramada | Jaugustte | DA   | 4560389 | 1967-07-25 |  500.00 |
+| A04     | Basu    | Navindi   | BA   | 9876543 | 1956-02-28 |  860.00 |
+| A05     | Ravi    | Shridhar  | NA   |       0 | 1989-02-15 |  500.50 |
+| A06     | Rukmini | Aiyer     | GH   | 5125274 | 1987-07-23 | 1500.50 |
++---------+---------+-----------+------+---------+------------+---------+
+6 rows in set (0.04 sec)
+
+7)
+->
+mysql> update customer SET DOB='1977-08-30' where Cust_id='A03';
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+
+mysql> update customer set DOB='1999-06-05' where Cust_id='A05';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+8)
+->
+mysql> select * from customer;
++---------+---------+-----------+------+---------+------------+---------+
+| Cust_id | Fname   | Lname     | Area | Phone   | DOB        | Payment |
++---------+---------+-----------+------+---------+------------+---------+
+| A01     | Ivan    | Ross      | SA   | 6125467 | 1986-01-15 |  800.50 |
+| A02     | Vandana | Ray       | MU   | 1234567 | 1987-12-20 | 1000.75 |
+| A03     | Pramada | Jaugustte | DA   | 4560389 | 1977-08-30 |  500.00 |
+| A04     | Basu    | Navindi   | BA   | 9876543 | 1956-02-28 |  860.00 |
+| A05     | Ravi    | Shridhar  | NA   |       0 | 1999-06-05 |  500.50 |
+| A06     | Rukmini | Aiyer     | GH   | 5125274 | 1987-07-23 | 1500.50 |
++---------+---------+-----------+------+---------+------------+---------+
+6 rows in set (0.06 sec)
+
+
+9)
+->mysql> delete from customer where Cust_id='A01';
+Query OK, 1 row affected (0.13 sec)
+
+mysql> delete from customer where Cust_id='A05';
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from customer;
++---------+---------+-----------+------+---------+------------+---------+
+| Cust_id | Fname   | Lname     | Area | Phone   | DOB        | Payment |
++---------+---------+-----------+------+---------+------------+---------+
+| A02     | Vandana | Ray       | MU   | 1234567 | 1987-12-20 | 1000.75 |
+| A03     | Pramada | Jaugustte | DA   | 4560389 | 1977-08-30 |  500.00 |
+| A04     | Basu    | Navindi   | BA   | 9876543 | 1956-02-28 |  860.00 |
+| A06     | Rukmini | Aiyer     | GH   | 5125274 | 1987-07-23 | 1500.50 |
++---------+---------+-----------+------+---------+------------+---------+
+4 rows in set (0.00 sec)
+
+10)
+->
+mysql> delete from customer;
+Query OK, 4 rows affected (0.14 sec)
+
+mysql> select * from customer;
+Empty set (0.00 sec)
+
+mysql> desc customer;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| Cust_id | varchar(5)   | NO   | PRI | NULL    |       |
+| Fname   | varchar(15)  | YES  |     | NULL    |       |
+| Lname   | varchar(15)  | YES  |     | NULL    |       |
+| Area    | char(2)      | YES  |     | NULL    |       |
+| Phone   | bigint       | YES  |     | NULL    |       |
+| DOB     | date         | YES  |     | NULL    |       |
+| Payment | decimal(6,2) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.15 sec)
+
+11)
+->
+
+mysql> insert into customer values('A1','Monika','Gavate','Pu','7414929147','1999-05-06',1000.00);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into customer values('A2','Anuja','Gavate','Ba','7057409719','2001-08-22',1450.00);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into customer values('A3','Akash','landge','Ca','1234567876','2003-08-25',340.00);
+Query OK, 1 row affected (0.53 sec)
+
+mysql> insert into customer values('A4','sakshi','devde','Ma','765664567876','2001-08-25',5650.00);
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into customer values('A5','kiran','devde','Ha','765645553376','2011-06-13',5440.00);
+Query OK, 1 row affected (0.06 sec)
+
+12)
+->
+
+mysql> update customer SET Fname='Ashwini',phone=123456789 where Cust_id='A4';
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++---------+---------+--------+------+--------------+------------+---------+
+| Cust_id | Fname   | Lname  | Area | Phone        | DOB        | Payment |
++---------+---------+--------+------+--------------+------------+---------+
+| A1      | Monika  | Gavate | Pu   |   7414929147 | 1999-05-06 | 1000.00 |
+| A2      | Anuja   | Gavate | Ba   |   7057409719 | 2001-08-22 | 1450.00 |
+| A3      | Akash   | landge | Ca   |   1234567876 | 2003-08-25 |  340.00 |
+| A4      | Ashwini | devde  | Ma   |    123456789 | 2001-08-25 | 5650.00 |
+| A5      | kiran   | devde  | Ha   | 765645553376 | 2011-06-13 | 5440.00 |
++---------+---------+--------+------+--------------+------------+---------+
+5 rows in set (0.04 sec)
+
+13)
+->
+
+mysql> delete from customer where Cust_id='A3';
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from customer;
++---------+---------+--------+------+--------------+------------+---------+
+| Cust_id | Fname   | Lname  | Area | Phone        | DOB        | Payment |
++---------+---------+--------+------+--------------+------------+---------+
+| A1      | Monika  | Gavate | Pu   |   7414929147 | 1999-05-06 | 1000.00 |
+| A2      | Anuja   | Gavate | Ba   |   7057409719 | 2001-08-22 | 1450.00 |
+| A4      | Ashwini | devde  | Ma   |    123456789 | 2001-08-25 | 5650.00 |
+| A5      | kiran   | devde  | Ha   | 765645553376 | 2011-06-13 | 5440.00 |
++---------+---------+--------+------+--------------+------------+---------+
+4 rows in set (0.00 sec)
